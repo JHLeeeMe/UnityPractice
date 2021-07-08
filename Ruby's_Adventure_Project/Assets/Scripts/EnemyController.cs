@@ -4,57 +4,65 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float velocity = 2.0f;
-    public bool vertical;
-    public float changeTime = 3.0f;
-    public ParticleSystem smokeEffect;
+    [SerializeField] private float _velocity = 2.0f;
+    [SerializeField] private bool _isVertical;
+    [SerializeField] private float _changeTime = 3.0f;
+    [SerializeField] private ParticleSystem _smokeEffect;
 
     private Rigidbody2D _rigidbody2D;
     private float _timer;
     private int _direction = 1;
     private Animator _animator;
-    private bool _broken = true;
+    private bool _isBroken = true;
 
-    private void Awake() {
+    private void Awake()
+    {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _timer = changeTime;
+        _timer = _changeTime;
         _animator = GetComponent<Animator>();
     }
 
-    private void Update() {
-        if (_broken) { return; }
+    private void Update()
+    {
+        if (_isBroken) { return; }
 
         _timer -= Time.deltaTime;
-        if (_timer < 0) {
+        if (_timer < 0)
+        {
             _direction *= -1;
-            _timer = changeTime;
+            _timer = _changeTime;
         }
 
         Vector2 position = _rigidbody2D.position;
-        if (vertical) {
+        if (_isVertical)
+        {
             _animator.SetFloat("MoveX", 0);
             _animator.SetFloat("MoveY", _direction);
-            position.y += _direction * velocity * Time.deltaTime;
-        } else {
+            position.y += _direction * _velocity * Time.deltaTime;
+        }
+        else
+        {
             _animator.SetFloat("MoveX", _direction);
             _animator.SetFloat("MoveY", 0);
-            position.x += _direction * velocity * Time.deltaTime;
+            position.x += _direction * _velocity * Time.deltaTime;
         }
 
         _rigidbody2D.MovePosition(position);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         RubyController ruby = other.gameObject.GetComponent<RubyController>();
         if (ruby == null) { return; }
 
         ruby.ChangeHealth(-1);
     }
 
-    public void Fix() {
-        _broken = false;
+    public void Fix()
+    {
+        _isBroken = false;
         _rigidbody2D.simulated = false;
         _animator.SetTrigger("Fixed");
-        smokeEffect.Stop();
+        _smokeEffect.Stop();
     }
 }
