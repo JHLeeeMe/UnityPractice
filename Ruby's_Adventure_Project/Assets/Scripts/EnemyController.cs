@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _timer = _changeTime;
         _animator = GetComponent<Animator>();
+        _smokeEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Update()
@@ -38,7 +39,8 @@ public class EnemyController : MonoBehaviour
         {
             _animator.SetFloat("MoveX", 0);
             _animator.SetFloat("MoveY", _direction);
-            position.y += _direction * _velocity * Time.deltaTime;
+            //position.y += _direction * _velocity * Time.deltaTime;
+            position.y += 5 * Time.deltaTime;
         }
         else
         {

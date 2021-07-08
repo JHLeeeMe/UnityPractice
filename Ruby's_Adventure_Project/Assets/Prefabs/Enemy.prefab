@@ -166,10 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c612307229cb2f91d8473590307bbefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 2
-  vertical: 1
-  changeTime: 1
-  smokeEffect: {fileID: 4470510809604146604}
+  _velocity: 2
+  _isVertical: 0
+  _changeTime: 3
+  _smokeEffect: {fileID: 4470510809604146604}
 --- !u!82 &1231248378817471482
 AudioSource:
   m_ObjectHideFlags: 0

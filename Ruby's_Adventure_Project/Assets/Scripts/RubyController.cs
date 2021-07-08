@@ -7,6 +7,8 @@ public class RubyController : MonoBehaviour
 {
     [SerializeField] private float _velocity = 0.1f;
     [SerializeField] private int _maxHealth = 5;
+    public int maxHealth { get => _maxHealth; }
+
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private AudioClip _hitClip;
     [SerializeField] private AudioClip _throwClip;
@@ -45,7 +47,7 @@ public class RubyController : MonoBehaviour
             _lookDirection.Set(move.x, move.y);
             _lookDirection.Normalize();
         }
-        
+
         _animator.SetFloat("LookX", _lookDirection.x);
         _animator.SetFloat("LookY", _lookDirection.y);
         _animator.SetFloat("Speed", move.magnitude);
@@ -69,11 +71,10 @@ public class RubyController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            RaycastHit2D hit = 
-                Physics2D.Raycast(_rigidbody2D.position + (Vector2.up * 0.2f),
-                                  _lookDirection,
-                                  1.5f,
-                                  LayerMask.GetMask("NPC"));
+            RaycastHit2D hit = Physics2D.Raycast(_rigidbody2D.position + (Vector2.up * 0.2f),
+                                                 _lookDirection,
+                                                 1.5f,
+                                                 LayerMask.GetMask("NPC"));
             if (hit.collider != null)
             {
                 NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
@@ -101,8 +102,9 @@ public class RubyController : MonoBehaviour
 
         // Update currentHealth
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
-        if (_currentHealth == 0) { 
-            Destroy(gameObject); 
+        if (_currentHealth == 0)
+        {
+            Destroy(gameObject);
         }
 
         // UI HealthBar
@@ -116,7 +118,7 @@ public class RubyController : MonoBehaviour
 
     private void Launch()
     {
-        GameObject projectileObject = 
+        GameObject projectileObject =
             Instantiate(_projectilePrefab, _rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
@@ -126,3 +128,4 @@ public class RubyController : MonoBehaviour
         PlaySound(_throwClip);
     }
 }
+

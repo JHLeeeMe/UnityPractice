@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bb0c47c8c8b52fc93dadfa3cd2bdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 2
-  maxHealth: 5
-  projectilePrefab: {fileID: 4593170402147484846, guid: 2e20d12b5bc492768b52971b83682237, type: 3}
+  _velocity: 5
+  _maxHealth: 5
+  _projectilePrefab: {fileID: 4593170402147484846, guid: 2e20d12b5bc492768b52971b83682237, type: 3}
   _hitClip: {fileID: 8300000, guid: 9b1bb1f450b7d444fa4a8019d13519a7, type: 3}
   _throwClip: {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
